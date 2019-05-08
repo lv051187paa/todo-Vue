@@ -5,6 +5,7 @@
               :todo="todo"
               :onDelete="() => deleteItem(todo.id)"
               @onEdit="onEdit"
+              @onCompleteUpd="onCompleteUpd"
     />
   </div>
 </template>
@@ -28,7 +29,12 @@
         this.todos = this.todos.filter( todo => todo.id !== id )
       },
       onEdit: async function(todo) {
-        await axios.patch( `/todos/${todo.id}`, {title: todo.title} ).then( res => this.todos[todo.id] = res.data )
+        await axios.patch( `/todos/${todo.id}`, {title: todo.title} ).then( res => this.todos[todo.id] = res.data );
+        this.todos[todo.id].title = todo.title;
+      },
+      onCompleteUpd: async function(todo){
+        await axios.patch( `/todos/${todo.id}`, {completed: todo.completed} ).then( res => this.todos[todo.id] = res.data );
+        this.todos[todo.id].completed = todo.completed;
       }
     },
     created () {
