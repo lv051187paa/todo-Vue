@@ -3,7 +3,7 @@
     <v-toolbar-side-icon></v-toolbar-side-icon>
     <v-toolbar-title>Inbox</v-toolbar-title>
 
-    <router-link v-for="route in routes"  :to="route.path"><v-btn color="success">{{route.name}}</v-btn></router-link>
+    <router-link v-for="route in routes" :key="route.name" :to="route.path"><v-btn color="success">{{route.name}}</v-btn></router-link>
 
     <v-spacer></v-spacer>
     <v-btn icon>

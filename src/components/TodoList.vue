@@ -10,8 +10,6 @@
 </template>
 
 <script>
-  import axios from 'axios';
-  import { api } from '../api';
   import TodoItem from './TodoItem.vue';
 
   export default {
@@ -26,16 +24,16 @@
     },
     methods: {
       deleteItem: async function(id) {
-        await api.delete( `/todos/${id}` );
+        await axios.delete( `/todos/${id}` );
         this.todos = this.todos.filter( todo => todo.id !== id )
       },
       onEdit: async function(todo) {
-        await api.patch( `/todos/${todo.id}`, {title: todo.title} ).then( res => this.todos[todo.id] = res.data )
+        await axios.patch( `/todos/${todo.id}`, {title: todo.title} ).then( res => this.todos[todo.id] = res.data )
       }
     },
     created () {
       const get = async () => {
-        await api.get( '/todos' ).then( res => this.todos = res.data )
+        await axios.get( '/todos' ).then( res => this.todos = res.data )
       };
       get();
     }
